@@ -385,10 +385,10 @@ def cashierLogin():
 def addStudent():
     cur = db.cursor()
     data = request.get_json()
-    student_name = data["student_name"]
+    student_name = data["name"]
     #class_div = data["class_div"]
-    student_email = data["student_email"]
-    student_password = data["student_password"]
+    student_email = data["email"]
+    student_password = data["password"]
     '''class_id = 0
     if class_div == "A":
         class_id = 1
