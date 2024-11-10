@@ -6,8 +6,9 @@ def addnotice():
     data = request.json #Expects the json data
     notice_to_be_added = data["notice_name"] #data contains the the json data which is in key value pair format
     notice_desc=data["notice_description"] # Here notice description is a key in data object
+    author = data["author"]
     cur = db.cursor()
-    cur.execute("INSERT INTO notice(notice_name, notice_description) VALUES (%s, %s)", (notice_to_be_added, notice_desc))
+    cur.execute("INSERT INTO notice(notice_name, notice_description, author) VALUES (%s, %s, %s)", (notice_to_be_added, notice_desc, author))
     db.commit()
     return jsonify({"message": "Notice added successfully."}), 201
 
