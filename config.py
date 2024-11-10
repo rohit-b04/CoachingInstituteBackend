@@ -2,11 +2,11 @@ from flask import Flask
 from flask_cors import CORS
 import pymysql as sql
 import os
-import jwt
+#import jwt
 
 #print("JWT_SECRET_KEY", os.environ.get("JWT_SECRET_KEY"))
 #Generate the token
-jwt_secret_key=os.environ.get('JWT_SECRET_KEY')
+'''jwt_secret_key=os.environ.get('JWT_SECRET_KEY')
 if not isinstance(jwt_secret_key, str):
     raise TypeError("JWT secret key should be a string.")
 
@@ -22,7 +22,7 @@ except jwt.ExpiredSignatureError:
     print("Token has expired.")
 except jwt.InvalidTokenError as e:
     print("Invalid token.", str(e))
-
+'''
 api = Flask(__name__)
 CORS(api)
 
