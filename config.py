@@ -38,6 +38,7 @@ try:
         user=api.config['MYSQL_USER'],
         password=api.config['MYSQL_PASSWORD'],
         database=api.config['MYSQL_DB']
+        port=api.config['MYSQL_PORT']
     )
     #print("Database connection successful!")
 except sql.MySQLError as e:
