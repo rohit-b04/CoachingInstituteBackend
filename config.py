@@ -26,10 +26,11 @@ except jwt.InvalidTokenError as e:
 api = Flask(__name__)
 CORS(api)
 
-api.config['MYSQL_HOST'] = 'localhost'
+api.config['MYSQL_HOST'] = 'autorack.proxy.rlwy.net'
 api.config['MYSQL_USER'] = 'root'
-api.config['MYSQL_PASSWORD'] = 'bargalrohit@22'
-api.config['MYSQL_DB'] = 'rizzinstitute'
+api.config['MYSQL_PASSWORD'] = 'lLEwJdWOHCQjHqZmKhHmvBPacCNOVRoC'
+api.config['MYSQL_DB'] = 'railway'
+api.config['MYSQL_PORT'] = 53142
 
 try:
     db = sql.connect(
