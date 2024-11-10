@@ -416,7 +416,7 @@ def addStudent():
     cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id) VALUES(%s, %s, %s, %s)", (student_name, student_id, 0, 4))
     db.commit()
     # Insert into fees for the student
-    cur.execute("INSERT INTO fees(student_id, fees_paid, fees_remaining) VALUES (%s, %s, %s)", (student_id, 0, 25000))
+    cur.execute("INSERT INTO fee(student_id, fees_paid, fees_remaining) VALUES (%s, %s, %s)", (student_id, 0, 25000))
     db.commit()
     # Insert into attendance table for each subject
     cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id) VALUES (%s, %s, %s)", ( student_id, 0, 1))
