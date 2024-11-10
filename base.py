@@ -505,5 +505,5 @@ def addCashier():
 
 
 if __name__=='__main__':
-    api.run(host = '0.0.0.0')
+    api.run(host = '0.0.0.0', debug = 'True')
     # host = '192.168.115.246'
