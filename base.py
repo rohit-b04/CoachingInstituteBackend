@@ -386,15 +386,15 @@ def addStudent():
     cur = db.cursor()
     data = request.get_json()
     student_name = data["student_name"]
-    class_div = data["class_div"]
+    #class_div = data["class_div"]
     student_email = data["student_email"]
     student_password = data["student_password"]
-    class_id = 0
+    '''class_id = 0
     if class_div == "A":
         class_id = 1
     else: 
         class_id = 2
-    
+    '''
     # cur.execute("SET foreign_key_checks = 0") #temporarily disable
     cur.execute("INSERT INTO student_login(email, name, password) VALUES(%s, %s, %s)", (student_email, student_name, student_password))
     db.commit()
@@ -406,19 +406,19 @@ def addStudent():
     student_id = studentInfo[0]
     
     # Insert values into student table for each subject
-    cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id, class_id) VALUES(%s, %s, %s, %s, %s)", (student_name, student_id, 0, 1, class_id))
-    cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id, class_id) VALUES(%s, %s, %s, %s, %s)", (student_name, student_id, 0, 2, class_id))
-    cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id, class_id) VALUES(%s, %s, %s, %s, %s)", (student_name, student_id, 0, 3, class_id))
-    cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id, class_id) VALUES(%s, %s, %s, %s, %s)", (student_name, student_id, 0, 4, class_id))
+    cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id) VALUES(%s, %s, %s, %s)", (student_name, student_id, 0, 1))
+    cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id) VALUES(%s, %s, %s, %s)", (student_name, student_id, 0, 2))
+    cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id) VALUES(%s, %s, %s, %s)", (student_name, student_id, 0, 3))
+    cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id) VALUES(%s, %s, %s, %s)", (student_name, student_id, 0, 4))
     
     # Insert into fees for the student
     cur.execute("INSERT INTO fees(student_id, fees_paid, fees_remaining) VALUES (%s, %s, %s)", (student_id, 0, 25000))
     
     # Insert into attendance table for each subject
-    cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id, class_id) VALUES (%s, %s, %s, %s)", ( student_id, 0, 1, class_id))
-    cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id, class_id) VALUES (%s, %s, %s, %s)", ( student_id, 0, 2, class_id))
-    cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id, class_id) VALUES (%s, %s, %s, %s)", ( student_id, 0, 3, class_id))
-    cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id, class_id) VALUES (%s, %s, %s, %s)", ( student_id, 0, 4, class_id))
+    cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id) VALUES (%s, %s, %s)", ( student_id, 0, 1))
+    cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id) VALUES (%s, %s, %s)", ( student_id, 0, 2))
+    cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id) VALUES (%s, %s, %s)", ( student_id, 0, 3))
+    cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id) VALUES (%s, %s, %s)", ( student_id, 0, 4))
     db.commit()
     # cur.execute("SET foreign_key_checks = 1")
     return jsonify({"message": "Student Added"})
