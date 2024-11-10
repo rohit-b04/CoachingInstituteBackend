@@ -408,17 +408,23 @@ def addStudent():
     
     # Insert values into student table for each subject
     cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id) VALUES(%s, %s, %s, %s)", (student_name, student_id, 0, 1))
+    db.commit()
     cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id) VALUES(%s, %s, %s, %s)", (student_name, student_id, 0, 2))
+    db.commit()
     cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id) VALUES(%s, %s, %s, %s)", (student_name, student_id, 0, 3))
+    db.commit()
     cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id) VALUES(%s, %s, %s, %s)", (student_name, student_id, 0, 4))
-    
+    db.commit()
     # Insert into fees for the student
     cur.execute("INSERT INTO fees(student_id, fees_paid, fees_remaining) VALUES (%s, %s, %s)", (student_id, 0, 25000))
-    
+    db.commit()
     # Insert into attendance table for each subject
     cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id) VALUES (%s, %s, %s)", ( student_id, 0, 1))
+    db.commit()
     cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id) VALUES (%s, %s, %s)", ( student_id, 0, 2))
+    db.commit()
     cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id) VALUES (%s, %s, %s)", ( student_id, 0, 3))
+    db.commit()
     cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id) VALUES (%s, %s, %s)", ( student_id, 0, 4))
     db.commit()
     # cur.execute("SET foreign_key_checks = 1")
