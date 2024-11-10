@@ -37,7 +37,7 @@ try:
         host=api.config['MYSQL_HOST'],
         user=api.config['MYSQL_USER'],
         password=api.config['MYSQL_PASSWORD'],
-        database=api.config['MYSQL_DB']
+        database=api.config['MYSQL_DB'],
         port=api.config['MYSQL_PORT']
     )
     #print("Database connection successful!")
