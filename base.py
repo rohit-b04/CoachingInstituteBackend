@@ -400,7 +400,8 @@ def addStudent():
     else: 
         class_id = 2
     '''
-    # cur.execute("SET foreign_key_checks = 0") #temporarily disable
+    cur.execute("SET foreign_key_checks = 0") #temporarily disable
+    db.commit()
     cur.execute("INSERT INTO student_login(email, name, password) VALUES(%s, %s, %s)", (student_email, student_name, student_password))
     db.commit()
     
@@ -431,7 +432,8 @@ def addStudent():
     db.commit()
     cur.execute("INSERT INTO attendance(student_id, subject_id, total) VALUES (%s, %s, %s)", ( student_id, 4, 0.0))
     db.commit()
-    # cur.execute("SET foreign_key_checks = 1")
+    cur.execute("SET foreign_key_checks = 1")
+    db.commit()
     return jsonify({"message": "Student Added"})
 
 
