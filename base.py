@@ -545,7 +545,6 @@ def viewFaculty():
     return jsonify([])
 
 
-
 @api.route("/viewCashier", methods = ['GET']
 def viewCashier():
     cur = db.cursor()
