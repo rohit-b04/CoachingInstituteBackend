@@ -91,6 +91,7 @@ def insertScores():
     cur.execute("SELECT subject_id FROM subject WHERE subject_name = %s", (subject_name))
     subject_id = cur.fetchone()
     subject_id = subject_id[0]
+    
     for i in student_id:
         test_score = test_scores[i-1]
         cur.execute("INSERT INTO test(subject_id, student_id, score) VALUES (%s, %s, %s)", (subject_id, i, test_score))
