@@ -61,20 +61,24 @@ def RandomStudentScore():
         return jsonify({"message": "Enter valid student id!"})
     
     
-@api.route("/result/forSubject", methods = ['POST'])
+@api.route("/result/date", methods = ['POST'])
 def ParticularSubject():
     data = request.json
     subject_id = data["subject_id"]
+    date = data["date"]
     cur = db.cursor()
-    cur.execute("SELECT * FROM test WHERE subject_id = %s", (subject_id))
-    student = cur.fetchall()
+    cur.execute("SELECT * FROM test WHERE testDate = %s AND subject_id = %s", (date,subject_id))
+    students = cur.fetchall()
     all_data = []
-    if student:
-        for row in student:
+    if students:
+        for row in students:
+            cur.execute("SELECT name FROM student_login WHERE student_id = %s", (row[2]))
+            name = cur.fetchall()
+            name = name[0]
             student_data = {
-                "test_id": row[0],
-                "score": row[4],
-                "student_id":row[3]
+                "name": name,
+                "score": row[3],
+                "id":row[2]
             }
             all_data.append(student_data)
             
