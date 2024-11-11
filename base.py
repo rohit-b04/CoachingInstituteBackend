@@ -37,7 +37,6 @@ def Results():
 @api.route("/result/student", methods = ['POST']) # Working as expected
 def RandomStudentScore():
     data = request.json
-    
     student_id=data["id"]
     if not student_id:
         return "Enter valid student id!", 400
@@ -47,9 +46,13 @@ def RandomStudentScore():
     all_data=[]
     if student:
         for row in student:
+            cur.execute("SELECT subject_name FROM subject WHERE subject_id = %s", row[1])
+            subjectname = cur.fetchone()
+            subjectname = subjectname[0]
+            newdate = row[4]
             student_data = {
-                "test_id": row[0],
-                "subject_id": row[1], 
+                "date": newdate.strftime("%Y-%m-%d"),
+                "subject_name": subjectname, 
                 "score": row[3]
             }
             all_data.append(student_data)
@@ -97,6 +100,23 @@ def insertScores():
         cur.execute("INSERT INTO test(subject_id, student_id, score) VALUES (%s, %s, %s)", (subject_id, i, test_score))
         db.commit()
     return jsonify({"message": "Score added successfully."}), 201 
+
+
+@api.route("/testDates", methods = ['GET'])
+def testDates():
+    cur = db.cursor()
+    cur.execute("SELECT DISTINCT testDate FROM test")
+    alldates = cur.fetchall()
+    dates = []
+    for i in alldates:
+        newdate = i[0].strftime("%Y-%m-%d")
+        date = {
+            "date": newdate
+        }
+        dates.append(date)
+    return jsonify(dates)
+
+
 
 
 @api.route("/viewNotice", methods = ['GET'])
