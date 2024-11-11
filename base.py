@@ -64,9 +64,12 @@ def RandomStudentScore():
 @api.route("/result/date", methods = ['POST'])
 def ParticularSubject():
     data = request.json
-    subject_id = data["subject_id"]
+    subject_name = data["subject_name"]
     date = data["date"]
     cur = db.cursor()
+    cur.execute("SELECT subject_id FROM subject WHERE subject_name = %s",(subject_name))
+    subject_id = cur.fetchone()
+    subject_id = subject_id[0]
     cur.execute("SELECT * FROM test WHERE testDate = %s AND subject_id = %s", (date,subject_id))
     students = cur.fetchall()
     all_data = []
