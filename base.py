@@ -22,7 +22,7 @@ def Results():
     if results_retrieved:
         for result in results_retrieved:
             result_data = {
-                "test_id": result[0],
+                "date": result[4].strftime("%Y-%m-%d"),
                 "id": result[2],
                 "subject_id": result[1],
                 "score": result[3]
