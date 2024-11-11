@@ -389,7 +389,7 @@ def cashierLogin():
 @api.route("/addStudent", methods = ['POST'])
 def addStudent():
     cur = db.cursor()
-    data = request.get_json()
+    data = request.json
     student_name = data["name"]
     #class_div = data["class_div"]
     student_email = data["email"]
@@ -400,8 +400,8 @@ def addStudent():
     else: 
         class_id = 2
     '''
-    cur.execute("SET foreign_key_checks = 0") #temporarily disable
-    db.commit()
+    #cur.execute("SET foreign_key_checks = 0") #temporarily disable
+    #db.commit()
     cur.execute("INSERT INTO student_login(email, name, password) VALUES(%s, %s, %s)", (student_email, student_name, student_password))
     db.commit()
     
@@ -432,8 +432,8 @@ def addStudent():
     db.commit()
     cur.execute("INSERT INTO attendance(student_id, subject_id, total) VALUES (%s, %s, %s)", ( student_id, 4, 0.0))
     db.commit()
-    cur.execute("SET foreign_key_checks = 1")
-    db.commit()
+    #cur.execute("SET foreign_key_checks = 1")
+    #db.commit()
     return jsonify({"message": "Student Added"})
 
 
