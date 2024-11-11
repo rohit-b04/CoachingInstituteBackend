@@ -511,7 +511,7 @@ def addCashier():
     name = data["name"]
     cashier_email = data["email"]
     cashier_password = data["password"]
-    cur.execute("INSERT INTO cashier(cashier_email, cashier_password, name) VALUES (%s, %s, %s)", (name, cashier_email, cashier_password))
+    cur.execute("INSERT INTO cashier(cashier_email, cashier_password, name) VALUES (%s, %s, %s)", (cashier_email, cashier_password, name))
     db.commit()
     return ({"message": "New cashier added"})
 
