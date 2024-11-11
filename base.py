@@ -550,15 +550,15 @@ def viewCashier():
     cur = db.cursor()
     cur.execute("SELECT * FROM cashier")
     data = cur.fetchall()
-    facultylist = []
+    facultyList = []
     if data:    
         for row in data:
                 info = {
                     "name": row[3],
                     "email": row[1]
                 }
-                facultylist.append(info)
-        return jsonify(facultylist)
+                facultyList.append(info)
+        return jsonify(facultyList)
     return jsonify([])
 
 
