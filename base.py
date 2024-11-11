@@ -23,7 +23,7 @@ def Results():
         for result in results_retrieved:
             result_data = {
                 "test_id": result[0],
-                "student_id": result[2],
+                "id": result[2],
                 "subject_id": result[1],
                 "score": result[3]
             }
@@ -34,7 +34,7 @@ def Results():
         return jsonify({"error": "Error retrieving results"})   
   
 
-@api.route("/result/student", methods = ['GET']) # Working as expected
+@api.route("/result/student", methods = ['POST']) # Working as expected
 def RandomStudentScore():
     data = request.json
     
@@ -58,7 +58,7 @@ def RandomStudentScore():
         return jsonify({"message": "Enter valid student id!"})
     
     
-@api.route("/result/forSubject", methods = ['GET'])
+@api.route("/result/forSubject", methods = ['POST'])
 def ParticularSubject():
     data = request.json
     subject_id = data["subject_id"]
@@ -86,11 +86,15 @@ def insertScores():
     cur = db.cursor()
     data = request.json
     student_id = data["id"]
-    subject_id = data["subject_id"]
-    test_score = data["test_score"]
-    test_id = data["test_id"]
-    cur.execute("INSERT INTO test(test_id, subject_id, student_id, score) VALUES (%s, %s, %s, %s)", (test_id, subject_id, student_id, test_score))
-    db.commit()
+    subject_name = data["subject_name"]
+    test_scores = data["test_scores"]
+    cur.execute("SELECT subject_id FROM subject WHERE subject_name = %s", (subject_name))
+    subject_id = cur.fetchone()
+    subject_id = subject_id[0]
+    for i in student_id:
+        test_score = test_scores[i-1]
+        cur.execute("INSERT INTO test(subject_id, student_id, score) VALUES (%s, %s, %s)", (subject_id, i, test_score))
+        db.commit()
     return jsonify({"message": "Score added successfully."}), 201 
 
 
@@ -233,7 +237,7 @@ def allAttendance():
     allAttendance = cur.fetchall()
     attendanceList = []
     for row in allAttendance:
-        name = row[2]
+        name = row[1]
         student_id = row[0]
         cur.execute("SELECT total FROM attendance WHERE subject_id = 1 AND student_id = %s", (row[0]))
         physicstotal = cur.fetchone()
@@ -376,7 +380,7 @@ def cashierLogin():
     
     if role == "cashier":
         if cashier_mail and cashier_pass:
-            return jsonify({"token": cashier_id})
+            return jsonify({"token": cashier_id, "role": role})
         return jsonify({"error": "Invalid Credentials"})
     return jsonify({"error": "Incorrect Role"})
 
@@ -436,7 +440,7 @@ def addStudent():
 def payFees():
     cur = db.cursor()
     data = request.json
-    student_id = data["student_id"]
+    student_id = data["id"]
     thisMuch = data["feesAmount"]
     cur.execute("SELECT * FROM fees WHERE id = %s", (student_id))
     studentFeesInfo = cur.fetchone()
@@ -456,7 +460,7 @@ def payFees():
 def checkFees():
         cur = db.cursor()
         data = request.json
-        student_id = data["student_id"]
+        student_id = data["id"]
         cur.execute("SELECT * FROM fees WHERE id = %s", (student_id))
         feeDetails = cur.fetchone()
         if feeDetails is None:
