@@ -528,7 +528,7 @@ def addFaculty():
     return ({"message": "New faculty added"})
 
 
-@api.route("/viewFaculty", methods = ['GET']
+@api.route("/viewFaculty", methods = ['GET'])
 def viewFaculty():
     cur = db.cursor()
     cur.execute("SELECT * FROM faculty")
@@ -545,7 +545,7 @@ def viewFaculty():
     return jsonify([])
 
 
-@api.route("/viewCashier", methods = ['GET']
+@api.route("/viewCashier", methods = ['GET'])
 def viewCashier():
     cur = db.cursor()
     cur.execute("SELECT * FROM cashier")
