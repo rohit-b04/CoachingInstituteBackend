@@ -416,7 +416,7 @@ def addStudent():
     cur.execute("INSERT INTO student(student_name, student_id, lectures_attended, subject_id) VALUES(%s, %s, %s, %s)", (student_name, student_id, 0, 4))
     db.commit()
     # Insert into fees for the student
-    cur.execute("INSERT INTO fee(student_id, fees_paid, fees_remaining) VALUES (%s, %s, %s)", (student_id, 0, 25000))
+    cur.execute("INSERT INTO fees(id, fees_paid, fees_remaining) VALUES (%s, %s, %s)", (student_id, 0, 25000))
     db.commit()
     # Insert into attendance table for each subject
     cur.execute("INSERT INTO attendance( student_id, lectures_attended, subject_id) VALUES (%s, %s, %s)", ( student_id, 0, 1))
@@ -431,22 +431,22 @@ def addStudent():
     return jsonify({"message": "Student Added"})
 
 
-@api.route("/fees/payAmount", methods = ['POST'])
+@api.route("/fees/payFees", methods = ['POST'])
 def payFees():
     cur = db.cursor()
     data = request.json
     student_id = data["student_id"]
     thisMuch = data["feesAmount"]
-    cur.execute("SELECT * FROM fees WHERE student_id = %s", (student_id))
+    cur.execute("SELECT * FROM fees WHERE id = %s", (student_id))
     studentFeesInfo = cur.fetchone()
     if studentFeesInfo is None:
         return jsonify({"message": "No such student exists"})
     feesPaid = studentFeesInfo[1]
     feesRemaining = studentFeesInfo[2]
-    cur.execute("UPDATE fees SET fees_paid = fees_paid+%s WHERE student_id = %s", (thisMuch, student_id))
-    cur.execute("UPDATE fees SET fees_remaining = fees_remaining-%s WHERE student_id = %s",(thisMuch, student_id))
+    cur.execute("UPDATE fees SET fees_paid = fees_paid+%s WHERE id = %s", (thisMuch, student_id))
+    cur.execute("UPDATE fees SET fees_remaining = fees_remaining-%s WHERE id = %s",(thisMuch, student_id))
     db.commit()
-    cur.execute("SELECT fees_remaining FROM fees WHERE student_id = %s", (student_id))
+    cur.execute("SELECT fees_remaining FROM fees WHERE id = %s", (student_id))
     feesRemaining = cur.fetchone()
     return jsonify({"message": "Fees updated"})
     
@@ -456,7 +456,7 @@ def checkFees():
         cur = db.cursor()
         data = request.json
         student_id = data["student_id"]
-        cur.execute("SELECT * FROM fees WHERE student_id = %s", (student_id))
+        cur.execute("SELECT * FROM fees WHERE id = %s", (student_id))
         feeDetails = cur.fetchone()
         if feeDetails is None:
             return jsonify({"message": "No Information on this student id"})
