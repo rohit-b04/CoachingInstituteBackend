@@ -196,10 +196,10 @@ def studentAttendance():
         }
         studentAttendance.append(subjectAttendance) """
     attendance = {
-        "Physics": attendanceInfo[0][3],
-        "Mathematics": attendanceInfo[1][3],
-        "Biology": attendanceInfo[2][3],
-        "Chemistry": attendanceInfo[3][3]
+        "Physics": attendanceInfo[0][2],
+        "Mathematics": attendanceInfo[1][2],
+        "Biology": attendanceInfo[2][2],
+        "Chemistry": attendanceInfo[3][2]
     }
     return jsonify(attendance)
         
