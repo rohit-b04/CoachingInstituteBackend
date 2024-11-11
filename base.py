@@ -528,6 +528,41 @@ def addFaculty():
     return ({"message": "New faculty added"})
 
 
+@api.route("/viewFaculty", methods = ['GET']
+def viewFaculty():
+    cur = db.cursor()
+    cur.execute("SELECT * FROM faculty")
+    data = cur.fetchall()
+    facultylist = []
+    if data:    
+        for row in data:
+                info = {
+                    "name": row[3],
+                    "email": row[1]
+                }
+                facultylist.append(info)
+        return jsonify(facultylist)
+    return jsonify([])
+
+
+
+@api.route("/viewCashier", methods = ['GET']
+def viewCashier():
+    cur = db.cursor()
+    cur.execute("SELECT * FROM cashier")
+    data = cur.fetchall()
+    facultylist = []
+    if data:    
+        for row in data:
+                info = {
+                    "name": row[3],
+                    "email": row[1]
+                }
+                facultylist.append(info)
+        return jsonify(facultylist)
+    return jsonify([])
+
+
 
 if __name__=='__main__':
     api.run(host = '0.0.0.0', debug = 'True')
