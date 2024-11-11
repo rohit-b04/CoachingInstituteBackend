@@ -182,11 +182,6 @@ def studentAttendance():
     cur = db.cursor()
     data = request.json
     student_id = data["student_id"]
-    cur.execute("SELECT name FROM student_login WHERE student_id = %s", (student_id))
-    name = cur.fetchone()
-    if name is None:
-        return "No such student Available"
-    name = name[0]
     cur.execute("SELECT * FROM attendance WHERE student_id = %s", (student_id))
     
     attendanceInfo = cur.fetchall()
