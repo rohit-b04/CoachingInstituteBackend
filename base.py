@@ -277,10 +277,14 @@ def allStudents():
             student_id = row[0]
             cur.execute("SELECT DISTINCT student_name FROM student WHERE student_id = %s", (student_id))
             name = cur.fetchone()
+            cur.execute("SELECT email FROM student_login WhERE student_id = %s", (student_id))
+            email = cur.fetchone()
+            email = email[0]
             name = name[0]
             studentlist = {
                 "id": student_id,
-                "name": name
+                "name": name,
+                "email": email
             }
             allstudents.append(studentlist)
         return jsonify(allstudents)
