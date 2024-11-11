@@ -507,8 +507,20 @@ def addCashier():
     cur.execute("INSERT INTO cashier(cashier_id, cashier_email, cashier_password) VALUES (%s, %s, %s)", (cashier_id, cashier_email, cashier_password))
     db.commit()
     return ({"message": "New cashier added"})
-           
-   
+
+
+@api.route("/addFaculty", methods = ['POST'])
+def addCashier():
+    cur = db.cursor()
+    data = request.json
+    name = data["name"]
+    faculty_id = data["id"]
+    faculty_email = data["email"]
+    faculty_password = data["password"]
+    cur.execute("INSERT INTO faculty(name, faculty_id, faculty_email, faculty_password) VALUES (%s, %s, %s, %s)", (name, faculty_id, faculty_email, faculty_password))
+    db.commit()
+    return ({"message": "New faculty added"})
+
 
 
 if __name__=='__main__':
