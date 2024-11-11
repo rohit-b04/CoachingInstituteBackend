@@ -510,7 +510,7 @@ def addCashier():
 
 
 @api.route("/addFaculty", methods = ['POST'])
-def addCashier():
+def addFaculty():
     cur = db.cursor()
     data = request.json
     name = data["name"]
