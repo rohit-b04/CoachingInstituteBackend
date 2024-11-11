@@ -177,7 +177,7 @@ def fillAttendance():
     return jsonify({"message": "Attendance Added"})
 
 
-@api.route("/attendance/specificStudent", methods = ['GET'])
+@api.route("/attendance/specificStudent", methods = ['POST'])
 def studentAttendance():
     cur = db.cursor()
     data = request.json
