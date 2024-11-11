@@ -517,7 +517,7 @@ def addFaculty():
     faculty_id = data["id"]
     faculty_email = data["email"]
     faculty_password = data["password"]
-    cur.execute("INSERT INTO faculty(name, faculty_id, faculty_email, faculty_password) VALUES (%s, %s, %s, %s)", (name, faculty_id, faculty_email, faculty_password))
+    cur.execute("INSERT INTO faculty(name, faculty_id, email, password) VALUES (%s, %s, %s, %s)", (name, faculty_id, faculty_email, faculty_password))
     db.commit()
     return ({"message": "New faculty added"})
 
