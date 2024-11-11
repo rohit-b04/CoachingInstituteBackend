@@ -73,7 +73,7 @@ def ParticularSubject():
     if students:
         for row in students:
             cur.execute("SELECT name FROM student_login WHERE student_id = %s", (row[2]))
-            name = cur.fetchall()
+            name = cur.fetchone()
             name = name[0]
             student_data = {
                 "name": name,
