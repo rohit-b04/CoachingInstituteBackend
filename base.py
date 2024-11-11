@@ -288,7 +288,7 @@ def allStudents():
             }
             allstudents.append(studentlist)
         return jsonify(allstudents)
-    return jsonify({"message": "No data Available"})
+    return jsonify([])
             
 
 
