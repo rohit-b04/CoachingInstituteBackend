@@ -1,7 +1,7 @@
 # Coaching Institute Website
 This is a web application developed for managing a coaching institute. The project uses a Flask backend and a React frontend.
 
-Features: 
+## Features: 
 
 User authentication system for admin and students.
 Faculty and class management.
